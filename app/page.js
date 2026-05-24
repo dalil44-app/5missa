@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// رَبْط السِّيت مَعَ Supabase بْسوارت الأمان
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
@@ -14,11 +13,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchStories() {
       try {
-        // كِيجيب المَعطيات من جَدول سْميتو stories فـ Supabase
-        const { data, error } = await supabase
-          .from('stories')
-          .select('*');
-        
+        const { data, error } = await supabase.from('stories').select('*');
         if (error) throw error;
         setStories(data || []);
       } catch (error) {
@@ -34,9 +29,7 @@ export default function Home() {
     <main style={{ padding: '20px', fontFamily: 'sans-serif', maxWidth: '800px', margin: '0 auto', direction: 'rtl' }}>
       <h1 style={{ color: '#333', textAlign: 'center' }}>موقع خْمِيسَة ✨</h1>
       <p style={{ textAlign: 'center', color: '#666' }}>مرحباً بك في مشروع خميسة الجديد</p>
-      
       <hr style={{ margin: '30px 0', border: '0', borderTop: '1px solid #ccc' }} />
-
       {loading ? (
         <p style={{ textAlign: 'center' }}>جاري تحميل القصص...</p>
       ) : stories.length === 0 ? (
